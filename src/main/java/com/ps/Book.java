@@ -12,7 +12,7 @@ public class Book {
         this.isbn = isbn;
         this.title = title;
         this.isCheckedOut = isCheckedOut;
-        this.checkedOutTo = checkedOutTo;
+        this.checkedOutTo = checkedOutTo.toUpperCase();
     }
 
     public int getId() {

@@ -7,15 +7,15 @@ public class Main {
         System.out.println("Available Books");
         for (Book book : bookList) {
             if (book != null && !book.isCheckedOut()) {
-                System.out.println("Book ID: " + book.getId() + " Book Title: " + book.getTitle() + " Book ISBN: " + book.getIsbn());
+                System.out.println("Book ID: " + book.getId() + " | Book Title: " + book.getTitle() + " | Book ISBN: " + book.getIsbn());
             }
-        }
+        }// will print all the books
         System.out.print("\nEnter book ID to check out or \"0\" to return to Main menu: ");
         int bookId = scanner.nextInt();
         scanner.nextLine();
 
         if (bookId == 0) {
-            System.out.println("Loading Main Menu");
+            System.out.println("\nLoading back to Main Menu...");
             return;
         }
         for (Book book : bookList) {
@@ -38,7 +38,7 @@ public class Main {
         System.out.println("\nChecked out Books");
         for (Book book : booklist) {
             if (book != null && book.isCheckedOut()) {
-                System.out.println("Book ID: " + book.getId() + "| Book ISBN: " + book.getIsbn() + "| Book Title: " + book.getTitle() + "| Checked out to: " + book.getCheckedOutTo());
+                System.out.println("Book ID: " + book.getId() + "| Book ISBN: " + book.getIsbn() + "| Book Title: " + book.getTitle() + "| Checked out to: " + book.getCheckedOutTo().toUpperCase());
             }
         }
         System.out.print("\nEnter 'C' to return Book? or 'X' to return to Main menu: ");
@@ -51,8 +51,8 @@ public class Main {
             scanner.nextLine();
             for (Book book : booklist) {
                 if (book != null && book.getId() == bookId && book.isCheckedOut()) {
-                    System.out.println(book.getTitle() + " has been checked in. Hope you enjoyed the book!");
-                    break;
+                    System.out.println("\n"+book.getTitle() + " has been checked in. Hope you enjoyed the book "+book.getCheckedOutTo()+"!");
+                    return;
                 }
             }
         }else{
