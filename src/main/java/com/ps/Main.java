@@ -3,13 +3,36 @@ package com.ps;
 import java.util.Scanner;
 
 public class Main {
-    public static void availableBooks(Book[] bookList) {
+    public static void availableBooks(Book[] bookList, Scanner scanner) {
         System.out.println("Available Books");
         for (Book book : bookList) {
             if (book != null && !book.isCheckedOut()) {
                 System.out.println("Book ID: " + book.getId() + " Book Title: " + book.getTitle() + " Book ISBN: " + book.getIsbn());
             }
         }
+        System.out.print("\nEnter book ID to check out or \"0\" to return to Main menu: ");
+        int bookId = scanner.nextInt();
+        scanner.nextLine();
+
+        if (bookId==0){
+            System.out.println("Loading Main Menu");
+        return;
+        }
+        for (Book book: bookList){
+            if (book != null && book.getId()== bookId && !book.isCheckedOut()){
+                System.out.print("Enter Name to Check out: ");
+                String name= scanner.nextLine();
+
+                book.checkOut(name);
+                System.out.println("Enjoy! "+name.toUpperCase());
+
+                System.out.print("\nPress enter for Main Menu");
+                scanner.nextLine();
+                return;
+            }
+        }
+        System.out.println("\nBook is not available, press Enter to return to Main Menu");
+        scanner.nextLine();
     }
 
     public static void main(String[] args) {
@@ -49,7 +72,7 @@ public class Main {
 
             switch (option) {
                 case 1:
-                    availableBooks(bookList);
+                    availableBooks(bookList,scanner);
                     break;
                 case 2:
                     // checked out books method
