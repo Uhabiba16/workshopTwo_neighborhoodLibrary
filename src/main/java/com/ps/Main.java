@@ -14,24 +14,51 @@ public class Main {
         int bookId = scanner.nextInt();
         scanner.nextLine();
 
-        if (bookId==0){
+        if (bookId == 0) {
             System.out.println("Loading Main Menu");
-        return;
+            return;
         }
-        for (Book book: bookList){
-            if (book != null && book.getId()== bookId && !book.isCheckedOut()){
+        for (Book book : bookList) {
+            if (book != null && book.getId() == bookId && !book.isCheckedOut()) {
                 System.out.print("Enter Name to Check out: ");
-                String name= scanner.nextLine();
+                String name = scanner.nextLine();
 
                 book.checkOut(name);
-                System.out.println("Enjoy! "+name.toUpperCase());
+                System.out.println("Enjoy the book " + name.toUpperCase()+"!");
 
-                System.out.print("\nPress enter for Main Menu");
+                System.out.print("\nPress 'Enter' for Main Menu");
                 scanner.nextLine();
                 return;
             }
         }
         System.out.println("\nBook is not available, press Enter to return to Main Menu");
+        scanner.nextLine();
+    }
+    public static void checkedOutBooks(Book[] booklist,Scanner scanner) {
+        System.out.println("\nChecked out Books");
+        for (Book book : booklist) {
+            if (book != null && book.isCheckedOut()) {
+                System.out.println("Book ID: " + book.getId() + "| Book ISBN: " + book.getIsbn() + "| Book Title: " + book.getTitle() + "| Checked out to: " + book.getCheckedOutTo());
+            }
+        }
+        System.out.print("\nEnter 'C' to return Book? or 'X' to return to Main menu: ");
+        String choice= scanner.nextLine().toUpperCase();
+        if (choice.equals("X"))
+            return;
+        else if (choice.equals("C")) {
+            System.out.print("Enter Book ID to return book:");
+            int bookId = scanner.nextInt();
+            scanner.nextLine();
+            for (Book book : booklist) {
+                if (book != null && book.getId() == bookId && book.isCheckedOut()) {
+                    System.out.println(book.getTitle() + " has been checked in. Hope you enjoyed the book!");
+                    break;
+                }
+            }
+        }else{
+            System.out.println("Invalid input, returning to Main Menu... ");
+        }
+        System.out.print("\nPress 'Enter' for Main Menu");
         scanner.nextLine();
     }
 
@@ -43,22 +70,22 @@ public class Main {
         bookList[1] = new Book(2, "123-00002", "Harry Potter2", false, "");
         bookList[2] = new Book(3, "123-00003", "Harry Potter3", false, "");
         bookList[3] = new Book(4, "123-00004", "Harry Potter4", false, "");
-        bookList[4] = new Book(5, "123-00004", "Harry Potter5", true, "");
+        bookList[4] = new Book(5, "123-00004", "Harry Potter5", true, "Ronald");
         bookList[5] = new Book(6, "123-00005", "Harry Potter6", false, "");
         bookList[6] = new Book(7, "123-00007", "Harry Potter7", false, "");
         bookList[7] = new Book(8, "123-00008", "Game of Thrones1", false, "");
         bookList[8] = new Book(9, "123-00009", "Game of Thrones2", false, "");
         bookList[9] = new Book(10, "123-000010", "Game of Thrones3", false, "");
-        bookList[10] = new Book(11, "123-000011", "Game of Thrones4", true, "");
+        bookList[10] = new Book(11, "123-000011", "Game of Thrones4", true, "Hodor");
         bookList[11] = new Book(12, "123-000012", "Game of Thrones5", false, "");
         bookList[12] = new Book(13, "123-000013", "The Lord of the Rings1", false, "");
         bookList[13] = new Book(14, "123-000014", "The Lord of the Rings2", false, "");
         bookList[14] = new Book(15, "123-000015", "The Lord of the Rings3", false, "");
         bookList[15] = new Book(16, "123-000016", "Java for Dummies", false, "");
-        bookList[16] = new Book(17, "123-000017", "Python for Dummies", true, "");
+        bookList[16] = new Book(17, "123-000017", "Python for Dummies", true, "Umme");
         bookList[17] = new Book(18, "123-000018", "How to be a Software Engineer", false, "");
         bookList[18] = new Book(19, "123-000019", "Web Design 101", false, "");
-        bookList[19] = new Book(20, "123-000020", "Artificial Intelligence", true, "");
+        bookList[19] = new Book(20, "123-000020", "Artificial Intelligence", true, "Greg");
 
         boolean mainMenu = true;
         while (mainMenu) {
@@ -75,7 +102,7 @@ public class Main {
                     availableBooks(bookList,scanner);
                     break;
                 case 2:
-                    // checked out books method
+                    checkedOutBooks(bookList,scanner);
                     break;
                 case 0:
                     mainMenu = false;
